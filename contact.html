@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact - Icey Crafts PH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Porkys';
+      src: url('fonts/PORKYS_.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Porkys', cursive;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f2ff, #f7fbff);
+      color: #001f3f;
+      overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    body.fade-in {
+      opacity: 1;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #001f3f;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 31, 63, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      user-select: none;
+      cursor: default;
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 45px;
+      margin-right: 12px;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));
+    }
+    nav {
+      display: flex;
+      gap: 28px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 25px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    nav a:hover,
+    nav a:focus {
+      background-color: #0077cc;
+      color: #fff;
+      outline: none;
+      box-shadow: 0 0 8px #0077cc;
+    }
+    main.container {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 60px auto 80px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    main.container > h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      color: #003366;
+    }
+    main.container > h1::after {
+      content: '';
+      width: 50%;
+      height: 4px;
+      background: #0077cc;
+      position: absolute;
+      left: 25%;
+      bottom: 0;
+      border-radius: 3px;
+      box-shadow: 0 2px 8px #0077ccaa;
+    }
+    p.subtitle {
+      font-weight: 300;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #005fa3;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .social-link {
+      font-family: 'Poppins', sans-serif !important;
+      text-decoration: none;
+      color: #001f3f;
+      font-weight: 600;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid transparent;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #e6f0ff;
+      box-shadow: 0 4px 12px rgba(0, 31, 63, 0.1);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    .social-link:hover,
+    .social-link:focus {
+      background: #0077cc;
+      color: #fff;
+      border-color: #005fa3;
+      box-shadow: 0 8px 20px rgba(0, 119, 204, 0.6);
+      outline: none;
+    }
+    .social-icon {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .social-link:hover .social-icon,
+    .social-link:focus .social-icon {
+      transform: scale(1.2);
+    }
+
+    /* Background blobs */
+    .background-decor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      filter: blur(60px);
+      animation: float 12s ease-in-out infinite alternate;
+    }
+    .blob1 { top: 15%; left: 5%; width: 350px; height: 350px; background: #00c6ff; }
+    .blob2 { top: 65%; left: 75%; width: 400px; height: 400px; background: #0077cc; animation-delay: 4s; }
+    .blob3 { bottom: 5%; right: 5%; width: 280px; height: 280px; background: #00bfff; animation-delay: 8s; }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.1); }
+    }
+
+    @media (max-width: 720px) {
+      main.container > h1 {
+        font-size: 2.4rem;
+      }
+      .social-links {
+        gap: 20px;
+      }
+      .social-link {
+        font-size: 1.1rem;
+        padding: 10px 14px;
+      }
+      .social-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-decor">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <img src="images/icey.png" alt="Logo" />
+      Icey Crafts PH
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Contact</h1>
+    <p class="subtitle">Connect with us on social media!</p>
+
+    <div class="social-links" role="list">
+      <a href="https://instagram.com/iceycraftsph" target="_blank" rel="noopener" class="social-link" role="listitem" aria-label="Instagram">
+        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm8.25 1.75a1 1 0 110 2 1 1 0 010-2zm-4.25 1.25a4.25 4.25 0 110 8.5 4.25 4.25 0 010-8.5z"/></svg>
+        Instagram
+      </a>
+
+      <a href="https://facebook.com/IceyCraftsPH" target="_blank" rel="noopener" class="social-link" role="listitem" aria-label="Facebook">
+        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-2v4h2v8h4v-8h3.5l.5-4H13V7a1 1 0 011-1h2V2h-3a5 5 0 00-5 5v1z"/></svg>
+        Facebook
+      </a>
+
+      <a href="https://twitter.com/iceycraftsph" target="_blank" rel="noopener" class="social-link" role="listitem" aria-label="Twitter">
+        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.8a8.5 8.5 0 01-2.5.7 4.3 4.3 0 001.9-2.3 8.4 8.4 0 01-2.7 1A4.2 4.2 0 0015.5 4a4.3 4.3 0 00-4.3 4.3c0 .3 0 .6.1.9A12.3 12.3 0 013 5.1a4.3 4.3 0 001.3 5.8 4.2 4.2 0 01-2-.6v.1a4.3 4.3 0 003.5 4.2 4.2 4.2 0 01-2 .1 4.3 4.3 0 004 3 8.5 8.5 0 01-5.3 1.8A12 12 0 0012 20c7.2 0 11.2-6 11.2-11.2 0-.2 0-.5 0-.7A8 8 0 0022 5.8z"/></svg>
+        Twitter
+      </a>
+
+      <a href="https://behance.net/beatricedanicablando" target="_blank" rel="noopener" class="social-link" role="listitem" aria-label="Behance">
+        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h7v2H5v2h5v2H5v4H3V7zm11 5a4 4 0 014 4c0 2.2-1.8 4-4 4a4 4 0 01-4-4c0-2.2 1.8-4 4-4zm0 2.3a1.7 1.7 0 00-1.7 1.7c0 1 .7 1.7 1.7 1.7s1.7-.7 1.7-1.7a1.7 1.7 0 00-1.7-1.7zm3.5-4.3v1.5h-3.3v-1.5h3.3zM16 7h4v2h-4V7z"/></svg>
+        Behance
+      </a>
+
+      <a href="https://linkedin.com/in/beatricedanicablando" target="_blank" rel="noopener" class="social-link" role="listitem" aria-label="LinkedIn">
+        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H3v12h3V9zm-1.5-4.3a1.75 1.75 0 11.001-3.5A1.75 1.75 0 014.5 4.7zM21 15v6h-3v-5.4c0-1.4-1.6-1.3-1.6 0V21h-3v-12h3v2c1.4-2.6 4.6-2.8 4.6 1.2z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </main>
+
+  <script>
+    // Fade in page on load
+    window.addEventListener('load', () => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
+</body>
+</html>

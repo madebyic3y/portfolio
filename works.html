@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Title</title>
+
+  <style>
+    /* Load Porky font */
+    @font-face {
+      font-family: 'Porky';
+      src: url('fonts/PORKYS_.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Fade-in animation */
+    body {
+      font-family: 'Porky', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f2ff, #f7fbff);
+      color: #001f3f;
+      line-height: 1.6;
+      overflow-x: hidden;
+
+      /* initial invisible state */
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    /* fade-in applied after load */
+    body.fade-in {
+      opacity: 1;
+    }
+
+    .background-decor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      filter: blur(60px);
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .blob1 { top: 10%; left: -10%; width: 300px; height: 300px; background: #00c6ff; }
+    .blob2 { top: 60%; left: 70%; width: 400px; height: 400px; background: #0077cc; animation-delay: 3s; }
+    .blob3 { bottom: -10%; right: -10%; width: 250px; height: 250px; background: #00bfff; animation-delay: 6s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.1); }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #001f3f;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 31, 63, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      user-select: none;
+      cursor: default;
+    }
+
+    .logo img {
+      height: 45px;
+      margin-right: 12px;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 25px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: #0077cc;
+      color: #fff;
+      outline: none;
+      box-shadow: 0 0 8px #0077cc;
+    }
+
+    main.container {
+      max-width: 1600px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    main.container > h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    main.container > h1::after {
+      content: '';
+      width: 60%;
+      height: 4px;
+      background: #0077cc;
+      position: absolute;
+      left: 20%;
+      bottom: 0;
+      border-radius: 3px;
+      box-shadow: 0 2px 8px #0077ccaa;
+    }
+
+    main.container > p {
+      font-weight: 300;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #005fa3;
+    }
+
+    section.project-section {
+      margin-bottom: 50px;
+      padding: 20px 10px;
+      border-radius: 16px;
+      background: linear-gradient(120deg, #ffffffcc, #dceeffcc);
+      box-shadow: 0 6px 20px rgba(0, 31, 63, 0.12);
+      transition: box-shadow 0.3s ease;
+    }
+
+    section.project-section:hover {
+      box-shadow: 0 12px 30px rgba(0, 31, 63, 0.25);
+    }
+
+    section.project-section h2 {
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #003366;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      cursor: default;
+      user-select: none;
+    }
+
+    section.project-section h2::after {
+      content: '';
+      width: 40%;
+      height: 3px;
+      background: #0077cc;
+      position: absolute;
+      left: 30%;
+      bottom: 0;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px #0077ccbb;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .gallery-item {
+      width: 100%;
+      max-width: 1000px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 31, 63, 0.15);
+      cursor: pointer;
+      background: white;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.06);
+      box-shadow: 0 16px 45px rgba(0, 31, 63, 0.3);
+      z-index: 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      background-color: #f0f4ff;
+      border-radius: 16px;
+      display: block;
+      transition: filter 0.35s ease;
+    }
+
+    .gallery-item:hover img {
+      filter: brightness(0.85);
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, transparent, rgba(0,31,63,0.8));
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      border-radius: 0 0 16px 16px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+
+    .gallery-item:hover .overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .float-icon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ffffff88;
+      border-radius: 50%;
+      animation: drift 20s linear infinite;
+      opacity: 0.6;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .icon1 { top: 30%; left: 15%; animation-delay: 0s; }
+    .icon2 { top: 70%; left: 80%; animation-delay: 5s; }
+    .icon3 { top: 50%; left: 40%; animation-delay: 10s; }
+
+    @keyframes drift {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    @media (max-width: 1200px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .gallery-item {
+        max-width: 280px;
+      }
+      .gallery-item img {
+        height: 210px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      main.container > h1 {
+        font-size: 2.4rem;
+      }
+      section.project-section h2 {
+        font-size: 1.8rem;
+      }
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item {
+        max-width: 90vw;
+      }
+      .gallery-item img {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item img {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-decor">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="float-icon icon1"></div>
+    <div class="float-icon icon2"></div>
+    <div class="float-icon icon3"></div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <img src="images/icey.png" alt="Logo" />
+      Icey Crafts PH
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+ <main class="container">
+    <h1>My Works</h1>
+   <!-- Infographics -->
+    <section class="project-section" id="infographic">
+      <h2>Infographics</h2>
+      <div class="gallery">
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infogg1.png" alt="Infographic 1" />
+          <div class="overlay">Infographic 1</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infog2.png" alt="Infographic 2" />
+          <div class="overlay">Infographic 2</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infog3.png" alt="Infographic 3" />
+          <div class="overlay">Infographic 3</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infog4.png" alt="Infographic 4" />
+          <div class="overlay">Infographic 4</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infog5.png" alt="Infographic 5" />
+          <div class="overlay">Infographic 5</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/infog6.png" alt="Infographic 6" />
+          <div class="overlay">Infographic 6</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" id="pubmat">
+      <h2>Pubmats</h2>
+      <div class="gallery">
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat1.jpg" alt="Pubmat 1" />
+          <div class="overlay">Pubmat 1</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat2.png" alt="Pubmat 2" />
+          <div class="overlay">Pubmat 2</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat3.gif" alt="Pubmat 3" />
+          <div class="overlay">Pubmat 3</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat4.png" alt="Pubmat 4" />
+          <div class="overlay">Pubmat 4</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat 5.jpg" alt="Pubmat 5" />
+          <div class="overlay">Pubmat 5</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/pubmat6.png" alt="Pubmat 6" />
+          <div class="overlay">Pubmat 6</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" id="posters">
+      <h2>Posters</h2>
+      <div class="gallery">
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster1.png" alt="Poster 1" />
+          <div class="overlay">Poster 1</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster2.png" alt="Poster 2" />
+          <div class="overlay">Poster 2</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster3.png" alt="Poster 3" />
+          <div class="overlay">Poster 3</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster4.png" alt="Poster 4" />
+          <div class="overlay">Poster 4</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster5.png" alt="Poster 5" />
+          <div class="overlay">Poster 5</div>
+        </div>
+        <div class="gallery-item" tabindex="0">
+          <img src="images/poster6.png" alt="Poster 6" />
+          <div class="overlay">Poster 6</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Add fade-in class after page load for animation
+    window.addEventListener('load', () => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
+</body>
+</html>
